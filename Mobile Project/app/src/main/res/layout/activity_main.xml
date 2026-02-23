@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Content Image"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <Button
+        android:id="@+id/btnSelectContent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Content" />
+
+    <ImageView
+        android:id="@+id/imageViewPreviewContent"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:background="#EEE"
+        android:layout_marginTop="8dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Style Image"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp" />
+
+    <Button
+        android:id="@+id/btnSelectStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Select Style" />
+
+    <ImageView
+        android:id="@+id/imageViewPreviewStyle"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:scaleType="centerCrop"
+        android:background="#EEE"
+        android:layout_marginTop="8dp" />
+
+    <Button
+        android:id="@+id/btnStylize"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stylize"
+        android:enabled="false"
+        android:layout_marginTop="16dp"
+        android:layout_gravity="center_horizontal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Result"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginTop="16dp" />
+
+    <ImageView
+        android:id="@+id/imageViewResult"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:scaleType="centerInside"
+        android:background="#EEE"
+        android:layout_marginTop="8dp" />
+
+</LinearLayout>

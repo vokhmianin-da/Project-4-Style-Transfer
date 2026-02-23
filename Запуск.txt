@@ -1,0 +1,1 @@
+python test.py --content input/content/brad_pitt.jpg --style input/style/mondrian.jpg --alpha 0.9
