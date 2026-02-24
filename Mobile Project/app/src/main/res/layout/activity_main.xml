@@ -14,7 +14,7 @@
 
     <Button
         android:id="@+id/btnSelectContent"
-        android:layout_width="wrap_content"
+        android:layout_width="117dp"
         android:layout_height="wrap_content"
         android:text="Select Content" />
 
@@ -73,5 +73,11 @@
         android:scaleType="centerInside"
         android:background="#EEE"
         android:layout_marginTop="8dp" />
+
+    <Button
+        android:id="@+id/button_save"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Save" />
 
 </LinearLayout>

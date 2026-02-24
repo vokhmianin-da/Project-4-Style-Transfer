@@ -71,6 +71,11 @@ class MainActivity : AppCompatActivity() {
                 return@setOnClickListener
             }
 
+            val btnSave = findViewById<Button>(R.id.button_save)
+            btnSave.setOnClickListener {
+                saveResultImage()
+            }
+
             btnStylize.isEnabled = false
             Toast.makeText(this, "Stylizing... please wait", Toast.LENGTH_SHORT).show()
 
@@ -107,5 +112,55 @@ class MainActivity : AppCompatActivity() {
 
     private fun updateStylizeButton() {
         btnStylize.isEnabled = contentUri != null && styleUri != null
+    }
+
+    private fun saveResultImage() {
+        // Получаем изображение из ImageView (предполагается, что оно там есть)
+        val drawable = imageViewResult.drawable ?: return
+        // Конвертируем Drawable в Bitmap (если это BitmapDrawable)
+        val bitmap = (drawable as? android.graphics.drawable.BitmapDrawable)?.bitmap
+        if (bitmap == null) {
+            Toast.makeText(this, "No image to save", Toast.LENGTH_SHORT).show()
+            return
+        }
+
+        // Используем Intent ACTION_CREATE_DOCUMENT для выбора места и имени файла
+        val intent = Intent(Intent.ACTION_CREATE_DOCUMENT).apply {
+            addCategory(Intent.CATEGORY_OPENABLE)
+            type = "image/jpeg"
+            putExtra(Intent.EXTRA_TITLE, "stylized_${System.currentTimeMillis()}.jpg")
+        }
+        startIntentForResult.launch(intent)
+    }
+
+    // Регистрируем контракт для получения результата выбора файла
+    private val startIntentForResult = registerForActivityResult(ActivityResultContracts.StartActivityForResult()) { result ->
+        if (result.resultCode == RESULT_OK) {
+            result.data?.data?.let { uri ->
+                // Сохраняем Bitmap по полученному URI
+                saveBitmapToUri(bitmapFromImageView(), uri)
+            }
+        }
+    }
+
+    // Вспомогательная функция для получения текущего Bitmap (можно вынести)
+    private fun bitmapFromImageView(): Bitmap? {
+        val drawable = imageViewResult.drawable ?: return null
+        return (drawable as? android.graphics.drawable.BitmapDrawable)?.bitmap
+    }
+
+    // Функция сохранения Bitmap в указанный URI
+    private fun saveBitmapToUri(bitmap: Bitmap?, uri: Uri) {
+        if (bitmap == null) return
+        try {
+            contentResolver.openOutputStream(uri)?.use { outputStream ->
+                bitmap.compress(Bitmap.CompressFormat.JPEG, 90, outputStream)
+                outputStream.flush()
+            }
+            Toast.makeText(this, "Image saved successfully", Toast.LENGTH_SHORT).show()
+        } catch (e: IOException) {
+            e.printStackTrace()
+            Toast.makeText(this, "Failed to save image", Toast.LENGTH_SHORT).show()
+        }
     }
 }
